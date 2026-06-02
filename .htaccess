@@ -1,0 +1,10 @@
+Options All -Indexes
+
+RewriteEngine On
+
+# Serve real files and directories directly (assets, node_modules, etc.)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Everything else goes to index.php
+RewriteRule ^ index.php [L,QSA]

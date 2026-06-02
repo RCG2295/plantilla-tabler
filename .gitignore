@@ -1,0 +1,14 @@
+.env
+
+/vendor/
+
+/node_modules/
+
+.vscode/
+.DS_Store
+
+CLAUDE.local.md
+
+# Uploads — keep folders, ignore uploaded files
+views/uploads/*/*
+!views/uploads/*/.gitkeep
