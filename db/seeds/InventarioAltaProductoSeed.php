@@ -4,6 +4,11 @@ use Phinx\Seed\AbstractSeed;
 
 class InventarioAltaProductoSeed extends AbstractSeed
 {
+    public function getDependencies(): array
+    {
+        return ['InventarioMotivosMovimientoSeed'];
+    }
+
     public function run(): void
     {
         $this->table('inventario_motivos_movimiento')->insert([

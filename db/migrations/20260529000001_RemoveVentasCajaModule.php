@@ -19,10 +19,10 @@ final class RemoveVentasCajaModule extends AbstractMigration
 
     public function down(): void
     {
-        // Re-insertar el módulo bajo el área de Ventas (id_area = 9)
         $this->execute("
-            INSERT INTO cfg_modulos (id_area, nombre, clave, icono, orden, estado, id_alta, fecha_alta)
-            VALUES (9, 'Control de caja', 'ventas/caja', 'ti ti-building-bank', 2, 0, 1, NOW())
+            INSERT IGNORE INTO cfg_modulos (id_area, nombre, clave, icono, orden, estado, id_alta, fecha_alta)
+            SELECT a.id, 'Control de caja', 'ventas/caja', 'ti ti-building-bank', 2, 0, NULL, NOW()
+            FROM cfg_areas a WHERE a.nombre = 'Ventas' LIMIT 1
         ");
     }
 }

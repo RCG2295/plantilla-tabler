@@ -2,7 +2,7 @@
 
 use Phinx\Seed\AbstractSeed;
 
-class VentasSeed extends AbstractSeed
+class ComprasSeed extends AbstractSeed
 {
     public function getDependencies(): array
     {
@@ -13,30 +13,24 @@ class VentasSeed extends AbstractSeed
     {
         $now = date('Y-m-d H:i:s');
 
-        // Insert Ventas area
         $this->table('cfg_areas')->insert([
             [
-                'nombre'     => 'Ventas',
-                'icono'      => 'ti ti-shopping-cart',
-                'orden'      => 6,
+                'nombre'     => 'Compras',
+                'icono'      => 'ti ti-shopping-bag',
+                'orden'      => 7,
                 'estado'     => 0,
                 'id_alta'    => null,
                 'fecha_alta' => $now,
             ],
         ])->saveData();
 
-        // Retrieve the area ID
-        $rows = $this->fetchAll("SELECT id FROM cfg_areas WHERE nombre = 'Ventas' ORDER BY id DESC LIMIT 1");
+        $rows = $this->fetchAll("SELECT id FROM cfg_areas WHERE nombre = 'Compras' ORDER BY id DESC LIMIT 1");
         if (empty($rows)) return;
         $id_area = (int) $rows[0]['id'];
 
-        // Insert modules
         $modulos = [
-            ['clave' => 'ventas/tipo_cambio',      'nombre' => 'Tipo de Cambio',      'orden' => 1],
-            ['clave' => 'ventas/mi_caja',          'nombre' => 'Mi Caja',             'orden' => 2],
-            ['clave' => 'ventas/pos',              'nombre' => 'Punto de Venta',      'orden' => 3],
-            ['clave' => 'ventas/historial_ventas', 'nombre' => 'Historial de ventas', 'orden' => 4],
-            ['clave' => 'ventas/historial_turnos', 'nombre' => 'Historial de turnos', 'orden' => 5],
+            ['clave' => 'compras/proveedores', 'nombre' => 'Proveedores', 'orden' => 1],
+            ['clave' => 'compras/compras',     'nombre' => 'Compras',     'orden' => 2],
         ];
 
         foreach ($modulos as $m) {
@@ -54,10 +48,9 @@ class VentasSeed extends AbstractSeed
             ])->saveData();
         }
 
-        // Assign all permissions to all roles for these modules
         $roles = $this->fetchAll("SELECT id FROM cfg_roles WHERE estado = 0");
         $mods  = $this->fetchAll(
-            "SELECT id FROM cfg_modulos WHERE clave IN ('ventas/tipo_cambio','ventas/mi_caja','ventas/pos','ventas/historial_ventas','ventas/historial_turnos') AND estado = 0"
+            "SELECT id FROM cfg_modulos WHERE clave IN ('compras/proveedores','compras/compras') AND estado = 0"
         );
 
         foreach ($roles as $rol) {

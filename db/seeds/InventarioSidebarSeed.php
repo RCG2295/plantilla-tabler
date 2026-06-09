@@ -2,9 +2,13 @@
 
 use Phinx\Seed\AbstractSeed;
 
-// Run after CfgAreasSeed and CfgModulosSeed
 class InventarioSidebarSeed extends AbstractSeed
 {
+    public function getDependencies(): array
+    {
+        return ['CfgAreasSeed', 'CfgRolesSeed'];
+    }
+
     public function run(): void
     {
         $db = $this->getAdapter()->getConnection();

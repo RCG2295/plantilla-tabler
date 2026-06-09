@@ -4,6 +4,11 @@ use Phinx\Seed\AbstractSeed;
 
 class DocsSeed extends AbstractSeed
 {
+    public function getDependencies(): array
+    {
+        return ['CfgAreasSeed', 'CfgRolesSeed'];
+    }
+
     public function run(): void
     {
         $db = $this->getAdapter()->getConnection();
@@ -16,7 +21,7 @@ class DocsSeed extends AbstractSeed
         if (!$area) {
             $db->prepare("
                 INSERT INTO cfg_areas (nombre, icono, orden, estado, id_alta, fecha_alta)
-                VALUES ('Ayuda', 'ti ti-help', 99, 0, 1, NOW())
+                VALUES ('Ayuda', 'ti ti-help', 99, 0, NULL, NOW())
             ")->execute();
             $area_id = (int) $db->lastInsertId();
         } else {
@@ -31,7 +36,7 @@ class DocsSeed extends AbstractSeed
         if (!$modulo) {
             $db->prepare("
                 INSERT INTO cfg_modulos (id_area, nombre, clave, icono, orden, estado, id_alta, fecha_alta)
-                VALUES (?, 'Manual del Sistema', 'docs', 'ti ti-book', 1, 0, 1, NOW())
+                VALUES (?, 'Manual del Sistema', 'docs', 'ti ti-book', 1, 0, NULL, NOW())
             ")->execute([$area_id]);
             $modulo_id = (int) $db->lastInsertId();
         } else {

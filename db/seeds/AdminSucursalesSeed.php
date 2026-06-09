@@ -2,10 +2,13 @@
 
 use Phinx\Seed\AbstractSeed;
 
-// Run after CfgRolesSeed, CfgAreasSeed and CfgModulosSeed.
-// Creates the admin/sucursales module and grants full permissions to superadmin roles only.
 class AdminSucursalesSeed extends AbstractSeed
 {
+    public function getDependencies(): array
+    {
+        return ['CfgAreasSeed', 'CfgRolesSeed'];
+    }
+
     public function run(): void
     {
         $db = $this->getAdapter()->getConnection();

@@ -2,10 +2,13 @@
 
 use Phinx\Seed\AbstractSeed;
 
-// Run after CfgRolesSeed and CfgModulosSeed.
-// Inserts the cfg/perfil module and grants view permission to all roles.
 class CfgPerfilSeed extends AbstractSeed
 {
+    public function getDependencies(): array
+    {
+        return ['CfgAreasSeed', 'CfgRolesSeed'];
+    }
+
     public function run(): void
     {
         $db = $this->getAdapter()->getConnection();

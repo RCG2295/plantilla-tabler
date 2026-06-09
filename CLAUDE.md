@@ -29,12 +29,26 @@ cp .env.example .env
 # Correr migraciones
 vendor/bin/phinx migrate
 
-# Correr seeds (en este orden exacto)
+# Correr seeds base (obligatorios, en este orden exacto)
 vendor/bin/phinx seed:run -s CfgRolesSeed
 vendor/bin/phinx seed:run -s CfgAreasSeed
 vendor/bin/phinx seed:run -s CfgModulosSeed
 vendor/bin/phinx seed:run -s CfgRolesPermisosSeed
 vendor/bin/phinx seed:run -s UsuarioAdminSeed
+
+# Seeds de módulos incluidos en la plantilla (correr según los módulos que uses)
+vendor/bin/phinx seed:run -s AdminSucursalesSeed       # módulo admin/sucursales
+vendor/bin/phinx seed:run -s CfgPerfilSeed             # módulo cfg/perfil (recomendado siempre)
+vendor/bin/phinx seed:run -s DocsSeed                  # módulo docs/manual (recomendado siempre)
+vendor/bin/phinx seed:run -s AdminSucursalesSeed       # módulo admin/sucursales
+vendor/bin/phinx seed:run -s ComprasSeed               # área y módulos de compras en el sidebar
+vendor/bin/phinx seed:run -s EgresosSeed               # área y módulos de egresos en el sidebar
+vendor/bin/phinx seed:run -s InventarioSidebarSeed     # área y módulos de inventario en el sidebar
+vendor/bin/phinx seed:run -s InventarioUnidadesMedidaSeed   # datos maestros de unidades
+vendor/bin/phinx seed:run -s InventarioMotivosMovimientoSeed # datos maestros de motivos
+vendor/bin/phinx seed:run -s InventarioAltaProductoSeed     # motivo extra "Alta de producto"
+vendor/bin/phinx seed:run -s VentasSeed                # área y módulos de ventas en el sidebar
+# vendor/bin/phinx seed:run -s NotificacionesSeed      # solo datos de demo — NO correr en producción
 
 # Revertir última migración
 vendor/bin/phinx rollback

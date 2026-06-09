@@ -2,11 +2,13 @@
 
 use Phinx\Seed\AbstractSeed;
 
-// Run after CfgRolesSeed and CfgModulosSeed
-// Roles: 1=Administrador, 2=Supervisor, 3=Usuario
-// Modules: 1=dashboard, 2=admin/usuarios, 3=reportes/notificaciones, 4=cfg/areas, 5=cfg/modulos, 6=cfg/roles
 class CfgRolesPermisosSeed extends AbstractSeed
 {
+    public function getDependencies(): array
+    {
+        return ['CfgRolesSeed', 'CfgModulosSeed'];
+    }
+
     public function run(): void
     {
         $now = date('Y-m-d H:i:s');

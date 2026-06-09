@@ -15,7 +15,7 @@ final class CreateTableEgresosCategorias extends AbstractMigration
                 descripcion VARCHAR(500) NULL,
                 id_padre    INT UNSIGNED NULL DEFAULT NULL,
                 estado      TINYINT UNSIGNED NOT NULL DEFAULT 0,
-                id_alta     INT UNSIGNED NOT NULL,
+                id_alta     INT UNSIGNED NULL DEFAULT NULL,
                 fecha_alta  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 CONSTRAINT fk_egcat_padre FOREIGN KEY (id_padre)
                     REFERENCES egresos_categorias(id) ON DELETE SET NULL

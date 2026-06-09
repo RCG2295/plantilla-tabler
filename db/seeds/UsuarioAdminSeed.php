@@ -2,9 +2,13 @@
 
 use Phinx\Seed\AbstractSeed;
 
-// Run after CfgRolesSeed (requires id_rol=1 for Administrador)
 class UsuarioAdminSeed extends AbstractSeed
 {
+    public function getDependencies(): array
+    {
+        return ['CfgRolesSeed'];
+    }
+
     public function run(): void
     {
         $this->table('admin_usuarios')->insert([
